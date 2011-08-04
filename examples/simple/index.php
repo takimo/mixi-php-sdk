@@ -13,6 +13,10 @@ $mixi = new Mixi(array(
     'redirect_uri' => REDIRECT_URL
 ));
 
+var_dump($_SERVER);
+
+exit;
+
 // get user id
 var_dump($mixi->getUser(true));
 
