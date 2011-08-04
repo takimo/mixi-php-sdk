@@ -1,0 +1,3 @@
+[setup]
+mv examples public_html
+chmod 755 public_html
