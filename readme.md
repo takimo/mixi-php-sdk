@@ -55,3 +55,16 @@ AppData
 ユーザーの認証認可の情報を操作するためのmethodはmixi_graph_api.phpで抽象化クラスとして定義されています。
 初期では$_SESSIONに保存、読み込みするようになっています。
 ですが長期にアプリケーションを利用してもらう場合、データの保存にはデータベースなどに保存・読み込みするように処理をオーバーライドすることが可能です。
+
+fluxflex
+-----
+このプロジェクトはfluxflex(https://www.fluxflex.com/)に対応しています。
+
+1.Github importにプロジェクトのURL(or git schema)を入力してください。
+2.setup -> Initialize Scriptsに移り、SetEnv Variablesに以下のような記述でconsumer key,consumer secret,redirect urlを記入してください
+
+    CONSUMER_KEY    e8fe2375a8b9ece(your consumer key)
+    CONSUMER_SECRET    5a89e11081a384ec0473(your consumer secret)
+    REDIRECT_URL    http://hogehoge.fluxflex.com/simple/callback.php
+
+3.利用可能です
