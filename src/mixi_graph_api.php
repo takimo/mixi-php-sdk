@@ -59,12 +59,8 @@ abstract class MixiGraphAPI {
         $app_access_token = $this->getAppData('access_token');
         $access_token = $this->getAccessToken();
 
-
         if($app_access_token != $access_token){
-            // refresh
-           
-            // can't refresh 
-            return $this->accessAuthorizeURL();
+            $this->refreshAccessToken();
         }
 
         if(!$user){
@@ -128,6 +124,10 @@ abstract class MixiGraphAPI {
     public function onReceiveAuthorizationCode($code)
     {
         $token = $this->getTokenFromCode($code);
+        $this->setAuthenticationData($token);
+    }
+
+    public function setAuthenticationData($token){
         $this->setAppData('code', $token->access_token);
         $this->setAppData('access_token', $token->access_token);
         $this->setAppData('refresh_token', $token->refresh_token);
@@ -218,9 +218,9 @@ abstract class MixiGraphAPI {
             'client_secret' => $this->consumer_secret,
             'refresh_token' => $refresh_token
         ));
-        $json = json_decode($result);
-        var_dump("refresh token");
-        var_dump($json);
+        $token = json_decode($result);
+        if(!$token) return $this->accessAuthorizeURL();
+        $this->setAuthenticationData($token);
     }
 
     protected function getAccessTokenFromAppData()
