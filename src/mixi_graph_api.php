@@ -10,7 +10,6 @@ abstract class MixiGraphAPI {
     public static $API_ENDPOINT = 'http://api.mixi-platform.com';
     public static $API_VERSION = '2';
 
-
     public static $CURL_OPTIONS = array(
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
@@ -142,9 +141,12 @@ abstract class MixiGraphAPI {
     {
         $curl = curl_init();
         $options = self::$CURL_OPTIONS;
-        if($method == 'POST' && $params){
+        if($method == 'POST' && is_array($params)){
             $options[CURLOPT_POST] = 1;
             $options[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+        }else if($method == 'POST' && $params){
+            $options[CURLOPT_POST] = 1;
+            $options[CURLOPT_POSTFIELDS] = $params;
         }else if($method == 'GET' && $params){
             $url .= "?" . http_build_query($params, null, '&');
         }
@@ -185,7 +187,7 @@ abstract class MixiGraphAPI {
         return $result;
     }
 
-    public function api($path, $method = 'GET', $params = null)
+    public function api($path, $method = 'GET', $params = null, $headers = array())
     {
         if(!$path) return FALSE;
         $url = self::$API_ENDPOINT . "/" . self::$API_VERSION;
@@ -195,12 +197,12 @@ abstract class MixiGraphAPI {
             $params = $method;
             $method = 'GET';
         }
-        $headers = array(
-            "Authorization: OAuth " . $this->getAccessToken()
-        );
-        if($method == "POST"){
+
+        if(!$headers && $method == "POST"){
             array_push($headers, "Content-type: application/x-www-form-urlencoded");
         }
+        array_push($headers, "Authorization: OAuth " . $this->getAccessToken());
+
         return json_decode($this->request($method, $url, $params, $headers));
     }
 
