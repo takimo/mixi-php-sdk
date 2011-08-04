@@ -58,7 +58,7 @@ AppData
 
 fluxflex
 -----
-このプロジェクトはfluxflex(https://www.fluxflex.com/)に対応しています。
+このプロジェクトは[fluxflex](https://www.fluxflex.com/)に対応しています。
 
 1.Github importにプロジェクトのURL(or git schema)を入力してください。
 2.setup -> Initialize Scriptsに移り、SetEnv Variablesに以下のような記述でconsumer key,consumer secret,redirect urlを記入してください
