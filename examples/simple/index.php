@@ -1,5 +1,5 @@
 <?php
-require_once('../../config.php');
+require_once('../../config.php.back');
 require_once('../../src/mixi.php');
 
 $consumer_key = (array_key_exists('HTTP_X_FLX_CONSUMER_KEY', $_SERVER)) ? $_SERVER['HTTP_X_FLX_CONSUMER_KEY'] : CONSUMER_KEY;
@@ -17,11 +17,15 @@ $mixi = new Mixi(array(
 // get user id
 var_dump($mixi->getUser(true));
 
+var_dump($mixi->api('/checkins/@me/@friends'));
+
+/*
 // get voice timeline
 var_dump($mixi->api('/voice/statuses/friends_timeline'));
 
 // get message inbox
 var_dump($mixi->api('/messages/@me/@inbox/'));
+*/
 
 /*
 // post voice
@@ -50,5 +54,4 @@ $result = $mixi->api('/photo/mediaItems/@me/@self/@default', 'POST',
     )
 );
 */
-
 ?>
