@@ -50,6 +50,26 @@ post voice
         "status" => "こんにちわ、世界"
     ));
 
+post photo
+
+    function loadImage($file_path)
+    {
+        $fp = fopen($file_path,'rb');
+        $size = filesize($file_path);
+        $img  = fread($fp, $size);
+        fclose($fp);
+        return $img;
+    }
+
+    $file_path = "sample.jpeg";
+    $info = GetImageSize("sample.jpeg");
+    $result = $mixi->api('/photo/mediaItems/@me/@self/@default', 'POST',
+        loadImage('sample.jpeg'),
+        array(
+            'Content-type: '.$info["mime"]
+        )
+    );
+
 AppData
 -----
 ユーザーの認証認可の情報を操作するためのmethodはmixi_graph_api.phpで抽象化クラスとして定義されています。
