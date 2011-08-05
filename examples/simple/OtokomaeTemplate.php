@@ -48,7 +48,7 @@ function include_template($_filename, $_context, $_layout=NULL) {
  *  テンプレートを読み込んで実行し、その結果を文字列で返す。
  *  include_template() の実体。
  */
-function render_template($_filename, &amp;$_context) {
+function render_template($_filename, &$_context) {
     $_cachename = convert_template($_filename);
     extract($_context);     // 連想配列をローカル変数に展開
     ob_start();
@@ -63,7 +63,7 @@ function render_template($_filename, &amp;$_context) {
  */
 function convert_template($filename) {
     global $TEMPLATE_DIR;
-    if (! file_exists($filename) &amp;&amp; $TEMPLATE_DIR)
+    if (! file_exists($filename) && $TEMPLATE_DIR)
         $filename = "$TEMPLATE_DIR/$filename";
     $cachename = $filename . '.cache';
     if (! file_exists($cachename) || filemtime($cachename) < filemtime($filename)) {

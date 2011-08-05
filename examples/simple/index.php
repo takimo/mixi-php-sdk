@@ -1,6 +1,7 @@
 <?php
-require_once('../../config.php.back');
+require_once('../../config.php');
 require_once('../../src/mixi.php');
+require_once('OtokomaeTemplate.php');
 
 $consumer_key = (array_key_exists('HTTP_X_FLX_CONSUMER_KEY', $_SERVER)) ? $_SERVER['HTTP_X_FLX_CONSUMER_KEY'] : CONSUMER_KEY;
 $consumer_secret = (array_key_exists('HTTP_X_FLX_CONSUMER_SECRET', $_SERVER)) ? $_SERVER['HTTP_X_FLX_CONSUMER_SECRET'] : CONSUMER_SECRET;
@@ -15,17 +16,17 @@ $mixi = new Mixi(array(
 ));
 
 // get user id
-var_dump($mixi->getUser(true));
+$user = $mixi->getUser(true);
 
-var_dump($mixi->api('/checkins/@me/@friends'));
+$profile = $mixi->api('/people/@me/@self');
 
-/*
+$checkin = $mixi->api('/checkins/@me/@friends', array('count' => 3));
+
 // get voice timeline
-var_dump($mixi->api('/voice/statuses/friends_timeline'));
+$voice = $mixi->api('/voice/statuses/friends_timeline', array('count' => 3));
 
 // get message inbox
-var_dump($mixi->api('/messages/@me/@inbox/'));
-*/
+$message = $mixi->api('/messages/@me/@inbox/', array('count' => 3));
 
 /*
 // post voice
@@ -54,4 +55,15 @@ $result = $mixi->api('/photo/mediaItems/@me/@self/@default', 'POST',
     )
 );
 */
+
+$TEMPLATE_DIR    = 'templates';
+$LAYOUT_TEMPLATE = 'layout.php';
+$context = array(
+    'user' => $user,
+    'profile' => $profile,
+    'voice' => $voice,
+    'checkin' => $checkin,
+    'message' => $message
+);
+include_template('indexview.php', $context);
 ?>
