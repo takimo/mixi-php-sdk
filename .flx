@@ -1,3 +1,4 @@
 [setup]
+chmod 777 examples/simple/templates
 mv examples public_html
 chmod 755 public_html
