@@ -7,6 +7,9 @@
 <h2>User</h2>
 <pre class="prettyprint"><code><?php var_dump($user) ?></code></pre>
 
+<h2>Updates</h2>
+<pre class="prettyprint"><code><?php var_dump($update) ?></code></pre>
+
 <h2>Profile</h2>
 <pre class="prettyprint"><code><?php var_dump($profile) ?></code></pre>
 

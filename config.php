@@ -9,7 +9,7 @@
 
 define('CONSUMER_KEY', '');
 define('CONSUMER_SECRET', '');
-define('SCOPE', 'r_profile w_voice r_voice w_photo r_message r_checkin');
+define('SCOPE', 'r_profile w_voice r_voice w_photo r_message r_checkin r_updates');
 define('DISPLAY', 'pc');
 define('REDIRECT_URL', '');
 

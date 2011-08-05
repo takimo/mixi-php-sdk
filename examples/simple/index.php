@@ -1,5 +1,5 @@
 <?php
-require_once('../../config.php');
+require_once('../../config.php.back');
 require_once('../../src/mixi.php');
 require_once('OtokomaeTemplate.php');
 
@@ -17,6 +17,8 @@ $mixi = new Mixi(array(
 
 // get user id
 $user = $mixi->getUser(true);
+
+$update = $mixi->api('/updates/@me/@self', array('count' => 3));
 
 $profile = $mixi->api('/people/@me/@self');
 
@@ -61,6 +63,7 @@ $LAYOUT_TEMPLATE = 'layout.php';
 $context = array(
     'user' => $user,
     'profile' => $profile,
+    'update' => $update,
     'voice' => $voice,
     'checkin' => $checkin,
     'message' => $message

@@ -1,5 +1,5 @@
 <?php
-require_once('../../config.php');
+require_once('../../config.php.back');
 require_once('../../src/mixi.php');
 
 $consumer_key = (array_key_exists('HTTP_X_FLX_CONSUMER_KEY', $_SERVER)) ? $_SERVER['HTTP_X_FLX_CONSUMER_KEY'] : CONSUMER_KEY;
