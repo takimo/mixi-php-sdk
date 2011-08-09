@@ -6,15 +6,19 @@
 <h1>mixi Graph API response data</h1>
 <h2>User</h2>
 <pre class="prettyprint"><code><?php var_dump($user) ?></code></pre>
+<pre class="prettyprint"><code><?php var_dump(json_encode($user)) ?></code></pre>
 
 <h2>Updates</h2>
 <pre class="prettyprint"><code><?php var_dump($update) ?></code></pre>
+<pre class="prettyprint"><code><?php echo json_encode($update) ?></code></pre>
 
 <h2>Profile</h2>
 <pre class="prettyprint"><code><?php var_dump($profile) ?></code></pre>
+<pre class="prettyprint"><code><?php echo json_encode($profile) ?></code></pre>
 
 <h2>Voice</h2>
 <pre class="prettyprint"><code><?php var_dump($voice) ?></code></pre>
+<pre class="prettyprint"><code><?php echo json_encode($voice) ?></code></pre>
 
 <h2>Checkin</h2>
 <pre class="prettyprint"><code><?php var_dump($checkin) ?></code></pre>

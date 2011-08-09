@@ -13,6 +13,7 @@ abstract class MixiGraphAPI {
     public static $CURL_OPTIONS = array(
         CURLOPT_CONNECTTIMEOUT => 10,
         CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HEADER         => 1,
         CURLOPT_TIMEOUT        => 60,
         CURLOPT_USERAGENT      => 'mixi-php-sdk',
     );
@@ -34,8 +35,7 @@ abstract class MixiGraphAPI {
         $this->display = ($config["display"]) ? $config["display"] : "pc";
         $this->redirect_uri = $config["redirect_uri"];
 
-        session_start();
-
+        $this->sessionStart();
         /*
          * when changed scope need new authorization
         $scope = $this->getScopeFromAppData();
@@ -43,6 +43,11 @@ abstract class MixiGraphAPI {
             $this->clearAllAppData();
         }
         */
+    }
+
+    protected function sessionStart()
+    {
+        session_start();
     }
 
     public function getUser()
@@ -58,7 +63,6 @@ abstract class MixiGraphAPI {
         $user = $this->getAppData('user_id', $default = 0);
         $app_access_token = $this->getAppData('access_token');
         $access_token = $this->getAccessToken();
-
         if($app_access_token != $access_token){
             $this->refreshAccessToken();
         }
@@ -78,7 +82,7 @@ abstract class MixiGraphAPI {
         return $user->entry->id;
     }
 
-    protected function getAuthorizeURL($scope)
+    public function getAuthorizeURL($scope)
     {
         $url = self::$AUTHORIZE_URL[$this->display];
         $params = array(
@@ -94,7 +98,9 @@ abstract class MixiGraphAPI {
 
     protected function accessAuthorizeURL()
     {
-        $this->clearAllAppData();
+        //var_dump("access authorize url");
+        //$this->clearAllAppData();
+        //var_dump("access authorize url");
         header("Location: " . $this->getAuthorizeURL($this->scope));
     }
 
@@ -128,7 +134,10 @@ abstract class MixiGraphAPI {
     }
 
     public function setAuthenticationData($token){
-        $this->setAppData('code', $token->access_token);
+        /* debug code
+        var_dump("set authorization data");
+        exit;
+        */
         $this->setAppData('access_token', $token->access_token);
         $this->setAppData('refresh_token', $token->refresh_token);
 
@@ -163,16 +172,17 @@ abstract class MixiGraphAPI {
         if($http_code == 401){
             preg_match("/WWW-Authenticate: OAuth error='(.*)'/", $result, $match);
             $error_message = ($match && $match[1]) ? $match[1] : null;
+            var_dump($error_message);
             if($error_message == "expired_token"){
                 $this->refreshAccessToken();
                 $result = curl_exec($curl);
             }else if($error_message == "invalid_token"){
-                $this->clearAllAppData();
+                //$this->clearAllAppData();
                 return $this->accessAuthorizeURL();
             }else if($error_message){
                 return error_log($error_message);
             }else{
-                $this->clearAllAppData();
+                //$this->clearAllAppData();
                 return $this->accessAuthorizeURL();
             }
         }else if($http_code == 403){
@@ -180,11 +190,13 @@ abstract class MixiGraphAPI {
         }else if($http_code == 404){
             echo $result;
             error_log($result);
-            $this->clearAllAppData();
+            //$this->clearAllAppData();
         }
 
+        //[note]改行と改行の間にゴミが混じっているときがある
+        list($header, $body) = preg_split("/\n.?\n/", $result);
         curl_close($curl);
-        return $result;
+        return $body;
     }
 
     public function api($path, $method = 'GET', $params = null, $headers = array())
@@ -208,7 +220,7 @@ abstract class MixiGraphAPI {
 
     protected function refreshAccessToken()
     {
-        if($refresh_token = $this->getRefreshToken()){
+        if(!$refresh_token = $this->getRefreshToken()){
             return $this->accessAuthorizeURL();
         }
         $url = 'https://secure.mixi-platform.com/2/token';

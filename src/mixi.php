@@ -1,5 +1,4 @@
 <?php
-
 require_once 'mixi_graph_api.php';
 
 class Mixi extends MixiGraphAPI{
@@ -29,7 +28,7 @@ class Mixi extends MixiGraphAPI{
     }
 
     protected static $supportedKeys =
-        array('code', 'access_token', 'refresh_token', 'user_id');
+        array('access_token', 'refresh_token', 'user_id', 'scope');
 
     public function clearAllAppData() {
         foreach (self::$supportedKeys as $key) {
