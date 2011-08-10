@@ -89,3 +89,7 @@ fluxflex
     REDIRECT_URL    http://hogehoge.fluxflex.com/simple/callback.php
 
 3.利用可能です(アクセストークンの入力を促すような認証画面になるような場合は再度プロジェクトをimportしてみてください)
+
+Author
+-----
+[@takimo](http://twitter.com)
