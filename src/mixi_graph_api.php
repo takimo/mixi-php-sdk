@@ -172,17 +172,21 @@ abstract class MixiGraphAPI {
                 $result = curl_exec($curl);
             }else if($error_message == "invalid_token"){
                 //$this->clearAllAppData();
+                curl_close($curl);
                 return $this->accessAuthorizeURL();
             }else if($error_message){
+                curl_close($curl);
                 return error_log($error_message);
             }else{
                 //$this->clearAllAppData();
+                curl_close($curl);
                 return $this->accessAuthorizeURL();
             }
         }else if($http_code == 403){
             echo "403: check scope setting";
         }else if($http_code == 404){
             echo $result;
+            curl_close($curl);
             return false;
             error_log($result);
             //$this->clearAllAppData();

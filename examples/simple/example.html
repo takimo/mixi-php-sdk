@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<link href="http://google-code-prettify.googlecode.com/svn/trunk/src/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <div id="maincontent">
+        <h1>sample application</h1>
+        <ul>
+        <li><a href="map.php">GoogleMapに友人のチェックインした場所をプロット</a></li>
+        </ul>
+
+        <h1>mixi Graph API response data</h1>
+        <h2>User</h2>
+        <pre class="prettyprint"><code>{{ user|safe }}</code></pre>
+
+        <h2>Updates</h2>
+        <pre class="prettyprint"><code>{{ update|safe }}</code></pre>
+
+        <h2>Profile</h2>
+        <pre class="prettyprint"><code>{{ profile|safe }}</code></pre>
+
+        <h2>Voice</h2>
+        <pre class="prettyprint"><code>{{ voice|safe }}</code></pre>
+
+        <h2>Checkin</h2>
+        <pre class="prettyprint"><code>{{ checkin|safe }}</code></pre>
+
+        <h2>Message</h2>
+        <pre class="prettyprint"><code>{{ message|safe }}</code></pre>
+    </div>
+<script>
+$("code").each(function(index, element){
+    myObject = JSON.parse(element.innerHTML);
+    pp = JSON.stringify(myObject, null, '\t');
+    element.innerHTML = pp;
+});
+</script>
+</body>
+</html>
+

@@ -1,8 +1,8 @@
 <?php
 
-require_once('../../config.php');
+require_once('../../config.php.back');
 require_once('../../src/mixi.php');
-require_once('OtokomaeTemplate.php');
+require_once('LightningTemplate.php');
 
 $consumer_key = (array_key_exists('HTTP_X_FLX_CONSUMER_KEY', $_SERVER)) ? $_SERVER['HTTP_X_FLX_CONSUMER_KEY'] : CONSUMER_KEY;
 $consumer_secret = (array_key_exists('HTTP_X_FLX_CONSUMER_SECRET', $_SERVER)) ? $_SERVER['HTTP_X_FLX_CONSUMER_SECRET'] : CONSUMER_SECRET;
@@ -18,11 +18,9 @@ $mixi = new Mixi(array(
 
 $data = $mixi->api('/checkins/@me/@friends');
 
-$TEMPLATE_DIR    = 'templates';
-$LAYOUT_TEMPLATE = 'googlemap.php';
-$context = array(
-    'data' => json_encode($data)
-);
-include_template('mapview.php', $context);
+$lt = new LightningTemplate('map.html');
+$lt->title = 'Example Simple version.';
+$lt->data = json_encode($data);
+echo $lt;
 
 ?>
