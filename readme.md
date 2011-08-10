@@ -32,9 +32,21 @@ mixiGraphAPIは認証フローとして[ウェブサーバーフロー][webserve
 
 [webserverflow]: http://openid-foundation-japan.github.com/draft-ietf-oauth-v2.ja.html#anchor6
 
+### getUser()
 get user id
 
     $mixi->getUser();
+
+### api($path, $params) or api($path, $method, $params, $headers)
+apiメソッドはmixiGraphAPIの各APIと通信するためのメソッドです。
+
+例えば、PeopleAPIの場合以下のようなURLにGETでアクセスを行います。
+
+    http://api.mixi-platform.com/2/people/@me/@self
+
+apiメソッドを利用すると以下のように書く事が可能です。
+
+    $mixi->api('/people/@me/@self');
 
 get user(viewer) data
 
@@ -85,14 +97,15 @@ fluxflex
 -----
 このプロジェクトは[fluxflex](https://www.fluxflex.com/)に対応しています。
 
-1. Github importにプロジェクトのURL(or git schema)を入力してください。
-2. setup -> Initialize Scriptsに移り、SetEnv Variablesに以下のような記述でconsumer key,consumer secret,redirect urlを記入してください
+1.Github importにプロジェクトのURL(or git schema)を入力してください。
+
+2.setup -> Initialize Scriptsに移り、SetEnv Variablesに以下のような記述でconsumer key,consumer secret,redirect urlを記入してください
 
     CONSUMER_KEY    e8fe2375a8b9ece(your consumer key)
     CONSUMER_SECRET    5a89e11081a384ec0473(your consumer secret)
     REDIRECT_URL    http://hogehoge.fluxflex.com/simple/callback.php
 
-3. 利用可能です(アクセストークンの入力を促すような認証画面になるような場合は再度プロジェクトをimportしてみてください)
+3.利用可能です(アクセストークンの入力を促すような認証画面になるような場合は再度プロジェクトをimportしてみてください)
 
 Author
 -----
