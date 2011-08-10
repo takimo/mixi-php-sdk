@@ -1,0 +1,48 @@
+<!DOCTYPE html "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <div id="maincontent">
+        <div id="map_canvas" style="width:100%; height:100%"></div>
+
+        <script type="text/javascript">
+        var friendCheckinData = {{ data|safe }};
+        console.log(friendCheckinData);
+        function initialize() {
+            var latlng = new google.maps.LatLng(35.608185,139.516754);
+            var myOptions = {
+              zoom: 10,
+              center: latlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            // marker
+            for(var i=0; i<friendCheckinData.entry.length; i++){
+                var data = friendCheckinData.entry[i];
+                var locat = data.location;
+                var user = data.user;
+
+                var image = new google.maps.MarkerImage(user.thumbnailUrl);
+                image.size = new google.maps.Size(50, 50);
+                image.scaledSize = new google.maps.Size(50, 50);
+                var myLatLng = new google.maps.LatLng(locat.latitude, locat.longitude);
+                var beachMarker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    icon: image
+                });
+            }
+        }
+        initialize();
+        </script>
+    </div>
+</body>
+</html>
+
