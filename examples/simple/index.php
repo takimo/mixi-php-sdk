@@ -1,5 +1,5 @@
 <?php
-require_once('../../config.php.back');
+require_once('../../config.php');
 require_once('../../src/mixi.php');
 require_once('LightningTemplate.php');
 
