@@ -1,7 +1,7 @@
 <?php
 require_once('../../config.php.back');
 require_once('../../src/mixi.php');
-require_once('OtokomaeTemplate.php');
+require_once('LightningTemplate.php');
 
 $consumer_key = (array_key_exists('HTTP_X_FLX_CONSUMER_KEY', $_SERVER)) ? $_SERVER['HTTP_X_FLX_CONSUMER_KEY'] : CONSUMER_KEY;
 $consumer_secret = (array_key_exists('HTTP_X_FLX_CONSUMER_SECRET', $_SERVER)) ? $_SERVER['HTTP_X_FLX_CONSUMER_SECRET'] : CONSUMER_SECRET;
@@ -58,15 +58,14 @@ $result = $mixi->api('/photo/mediaItems/@me/@self/@default', 'POST',
 );
 */
 
-$TEMPLATE_DIR    = 'templates';
-$LAYOUT_TEMPLATE = 'layout.php';
-$context = array(
-    'user' => $user,
-    'profile' => $profile,
-    'update' => $update,
-    'voice' => $voice,
-    'checkin' => $checkin,
-    'message' => $message
-);
-include_template('indexview.php', $context);
+$lt = new LightningTemplate('example.html');
+$lt->title = 'Example Simple version.';
+$lt->user = json_encode($user);
+$lt->profile = json_encode($profile);
+$lt->update = json_encode($update);
+$lt->voice = json_encode($voice);
+$lt->checkin = json_encode($checkin);
+$lt->message = json_encode($message);
+echo $lt;
+
 ?>

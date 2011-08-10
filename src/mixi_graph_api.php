@@ -100,7 +100,6 @@ abstract class MixiGraphAPI {
     {
         //var_dump("access authorize url");
         //$this->clearAllAppData();
-        //var_dump("access authorize url");
         header("Location: " . $this->getAuthorizeURL($this->scope));
     }
 
@@ -134,16 +133,12 @@ abstract class MixiGraphAPI {
     }
 
     public function setAuthenticationData($token){
-        /* debug code
-        var_dump("set authorization data");
-        exit;
-        */
         $this->setAppData('access_token', $token->access_token);
         $this->setAppData('refresh_token', $token->refresh_token);
+        $this->setAppData('scope', $token->scope);
 
         $user = $this->getUser();
         $this->setAppData('user_id', $user);
-        $this->setAppData('scope', $token->scope);
     }
 
     public function request($method, $url, $params, $headers = null)
@@ -172,7 +167,6 @@ abstract class MixiGraphAPI {
         if($http_code == 401){
             preg_match("/WWW-Authenticate: OAuth error='(.*)'/", $result, $match);
             $error_message = ($match && $match[1]) ? $match[1] : null;
-            var_dump($error_message);
             if($error_message == "expired_token"){
                 $this->refreshAccessToken();
                 $result = curl_exec($curl);
@@ -189,6 +183,7 @@ abstract class MixiGraphAPI {
             echo "403: check scope setting";
         }else if($http_code == 404){
             echo $result;
+            return false;
             error_log($result);
             //$this->clearAllAppData();
         }
