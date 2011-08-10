@@ -72,9 +72,9 @@ post photo
 
 Required
 -----
-1.curlが動作するPHP環境
-2.Consumer Key,Consumer Secretの用意
-  [mixiのDeveloper登録、ならびにmixiGraphAPIのサービス追加](http://developer.mixi.co.jp/connect/mixi_graph_api/services/)を行い、
+1. curlが動作するPHP環境
+2. Consumer Key,Consumer Secretの用意
+    [mixiのDeveloper登録、ならびにmixiGraphAPIのサービス追加](http://developer.mixi.co.jp/connect/mixi_graph_api/services/)を行い、
 
 AppData
 -----
