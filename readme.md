@@ -70,6 +70,12 @@ post photo
         )
     );
 
+Required
+-----
+1.curlが動作するPHP環境
+2.Consumer Key,Consumer Secretの用意
+  [mixiのDeveloper登録、ならびにmixiGraphAPIのサービス追加](http://developer.mixi.co.jp/connect/mixi_graph_api/services/)を行い、
+
 AppData
 -----
 ユーザーの認証認可の情報を操作するためのmethodはmixi_graph_api.phpで抽象化クラスとして定義されています。
