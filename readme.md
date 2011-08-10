@@ -88,4 +88,4 @@ fluxflex
     CONSUMER_SECRET    5a89e11081a384ec0473(your consumer secret)
     REDIRECT_URL    http://hogehoge.fluxflex.com/simple/callback.php
 
-3.利用可能です
+3.利用可能です(アクセストークンの入力を促すような認証画面になるような場合は再度プロジェクトをimportしてみてください)
