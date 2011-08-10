@@ -92,4 +92,4 @@ fluxflex
 
 Author
 -----
-[@takimo](http://twitter.com)
+[@takimo](http://twitter.com/takimo)
