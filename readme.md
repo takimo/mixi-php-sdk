@@ -73,8 +73,7 @@ post photo
 Required
 -----
 1. curlが動作するPHP環境
-2. Consumer Key,Consumer Secretの用意
-    [mixiのDeveloper登録、ならびにmixiGraphAPIのサービス追加](http://developer.mixi.co.jp/connect/mixi_graph_api/services/)を行い、
+2. Consumer Key,Consumer Secretの用意([mixiのDeveloper登録、ならびにmixiGraphAPIのサービス追加](http://developer.mixi.co.jp/connect/mixi_graph_api/services/))
 
 AppData
 -----
@@ -86,15 +85,14 @@ fluxflex
 -----
 このプロジェクトは[fluxflex](https://www.fluxflex.com/)に対応しています。
 
-1.Github importにプロジェクトのURL(or git schema)を入力してください。
-
-2.setup -> Initialize Scriptsに移り、SetEnv Variablesに以下のような記述でconsumer key,consumer secret,redirect urlを記入してください
+1. Github importにプロジェクトのURL(or git schema)を入力してください。
+2. setup -> Initialize Scriptsに移り、SetEnv Variablesに以下のような記述でconsumer key,consumer secret,redirect urlを記入してください
 
     CONSUMER_KEY    e8fe2375a8b9ece(your consumer key)
     CONSUMER_SECRET    5a89e11081a384ec0473(your consumer secret)
     REDIRECT_URL    http://hogehoge.fluxflex.com/simple/callback.php
 
-3.利用可能です(アクセストークンの入力を促すような認証画面になるような場合は再度プロジェクトをimportしてみてください)
+3. 利用可能です(アクセストークンの入力を促すような認証画面になるような場合は再度プロジェクトをimportしてみてください)
 
 Author
 -----
