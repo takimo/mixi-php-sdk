@@ -30,6 +30,58 @@ $voice = $mixi->api('/voice/statuses/friends_timeline', array('count' => 3));
 // get message inbox
 $message = $mixi->api('/messages/@me/@inbox/', array('count' => 3));
 
+// get profile
+$profile_images = $mixi->api('/people/images/@me/@self', array('privacy' => 'everyone'));
+
+/*
+// post diary (type application/json)
+$post_diary =  $mixi->api('/diary/articles/@me/@self',
+    'POST',
+    json_encode(array(
+        "title" => "日記のタイトル",
+        "body" => "日記の本文",
+        "privacy" => array(
+            "visibility" => "self",
+        )
+    )),
+    array('Content-Type' => 'application/json')
+);
+*/
+
+/*
+// post diary (type multipart/form-data)
+$post_diary = $mixi->api('/diary/articles/@me/@self',
+    'POST',
+    array(
+        "request" => json_encode(array(
+            "title" => "日記のタイトル",
+            "body" => "日記の本文",
+            "privacy" => array(
+                "visibility" => "self",
+            )
+        )),
+        "photo1" => "@sample.jpeg"
+    ),
+    array('Content-Type' => 'multipart/form-data')
+);
+*/
+
+/*
+// change profile image
+$profile_image_change = $mixi->api(
+    '/people/images/@me/@self/' . $profile_images->entry[0]->id,
+    'PUT',
+    json_encode(
+        array(
+            "privacy" => "everyone",
+            "primary" => "true"
+        )
+    ),
+    array('Content-Type' => 'application/json')
+);
+var_dump($profile_image_change);
+*/
+
 /*
 // post voice
 var_dump($mixi->api('/voice/statuses', 'POST', array(
@@ -66,6 +118,7 @@ $lt->update = json_encode($update);
 $lt->voice = json_encode($voice);
 $lt->checkin = json_encode($checkin);
 $lt->message = json_encode($message);
+$lt->profile_image = json_encode($profile_images);
 echo $lt;
 
 ?>

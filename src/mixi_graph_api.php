@@ -147,16 +147,28 @@ abstract class MixiGraphAPI {
         $options = self::$CURL_OPTIONS;
         if($method == 'POST' && is_array($params)){
             $options[CURLOPT_POST] = 1;
-            $options[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+            preg_match('/multipart\/form-data/', $headers['Content-Type'], $headers_match);
+            if($headers_match){
+                $options[CURLOPT_POSTFIELDS] = $params;
+            }else{
+                $options[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+            }
         }else if($method == 'POST' && $params){
             $options[CURLOPT_POST] = 1;
             $options[CURLOPT_POSTFIELDS] = $params;
         }else if($method == 'GET' && $params){
             $url .= "?" . http_build_query($params, null, '&');
+        }else if($method == 'PUT' && $params){
+            $options[CURLOPT_CUSTOMREQUEST] = 'PUT';
+            $options[CURLOPT_POSTFIELDS] = $params;
         }
         $options[CURLOPT_URL] = $url;
         if($headers){
-            $options[CURLOPT_HTTPHEADER] = $headers;
+            $headers_array = array();
+            foreach($headers as $key => $value){
+                array_push($headers_array, $key . ": " . $value);
+            }
+            $options[CURLOPT_HTTPHEADER] = $headers_array;
         }
 
         curl_setopt_array($curl, $options);
@@ -210,9 +222,9 @@ abstract class MixiGraphAPI {
         }
 
         if(!$headers && $method == "POST"){
-            array_push($headers, "Content-type: application/x-www-form-urlencoded");
+            $headers["Content-type"] = "application/x-www-form-urlencoded"; 
         }
-        array_push($headers, "Authorization: OAuth " . $this->getAccessToken());
+        $headers["Authorization"] = "OAuth " . $this->getAccessToken();
 
         return json_decode($this->request($method, $url, $params, $headers));
     }
